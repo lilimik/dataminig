@@ -1,0 +1,5 @@
+vk-api ~= 11.9.1
+vk ~= 2.0.2
+aiovk ~= 4.0.0
+psycopg2-binary ~= 2.8.6
+asyncpg ~= 0.22.0
