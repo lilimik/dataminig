@@ -1,4 +1,5 @@
 import re
+import time
 import aiovk
 import asyncio
 import asyncpg
@@ -11,11 +12,7 @@ class ConnManager:
 
     async def get_conn(self):
         self.conn = await asyncpg.connect(
-            database="postgres",
-            user="postgres",
-            password="081011235813MiXaIl",
-            host="db-course.ccjvz2nfguyj.us-east-1.rds.amazonaws.com",
-            port="5432"
+            # x2
         )
         return self.conn
 
@@ -78,6 +75,8 @@ async def split_text_from_post(conn, posts):
 
 
 async def spider():
+    start = time.time()
+    print(start)
     json = []
     owner_id = None
     count = 100
@@ -111,10 +110,11 @@ async def spider():
 
     await manager.close_connection()
     await session.close()
+    print(time.time() - start)
 
 
 if __name__ == "__main__":
-    token = "ae40397aae40397aae40397a9dae3682b9aae40ae40397ace0bf838aa1fa57fa14979f7"
+    token = ""
     session = aiovk.TokenSession(access_token=token)
     vk_api = aiovk.API(session)
 
