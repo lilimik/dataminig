@@ -2,29 +2,7 @@ import re
 import time
 import aiovk
 import asyncio
-import asyncpg
-
-
-class ConnManager:
-
-    def __init__(self):
-        self.conn = None
-
-    async def get_conn(self):
-        self.conn = await asyncpg.connect(
-            # x2
-        )
-        return self.conn
-
-    async def get_connection(self):
-        return await self.get_conn()
-
-    async def close_connection(self):
-        await self.conn.close()
-
-
-async def delete_all_from_db(conn):
-    await conn.execute("delete from words where 1 = 1;")
+from managers.ConnectionManager import ConnectionManager, delete_all_from_db
 
 
 async def save_data(conn, values):
@@ -44,7 +22,7 @@ async def get_posts(owner_id, count, offset):
     return posts
 
 
-async def split_text_from_post(conn, posts):
+def split_text_from_post(posts):
     items = posts['items']
     dictionary = {}
 
@@ -59,8 +37,10 @@ async def split_text_from_post(conn, posts):
             else:
                 dictionary[word] = 1
 
-    print(dictionary)
+    return dictionary
 
+
+async def saving_data(conn, dictionary):
     values = ''
     for word, count in dictionary.items():
         word = re.sub('\'', '', word)
@@ -84,7 +64,7 @@ async def spider():
     conn = await manager.get_connection()
 
     if offset == 0:
-        await delete_all_from_db(conn)
+        await delete_all_from_db(conn, TABLE)
 
     while not json:
         domain = 'https://vk.com/itis_kfu'
@@ -106,7 +86,8 @@ async def spider():
 
     for co_post in asyncio.as_completed(co_posts):
         posts = await co_post
-        await split_text_from_post(conn, posts)
+        dictionary = split_text_from_post(posts)
+        await saving_data(conn, dictionary)
 
     await manager.close_connection()
     await session.close()
@@ -114,11 +95,12 @@ async def spider():
 
 
 if __name__ == "__main__":
-    token = ""
+    TABLE = 'words'
+    token = "ae40397aae40397aae40397a9dae3682b9aae40ae40397ace0bf838aa1fa57fa14979f7"
     session = aiovk.TokenSession(access_token=token)
     vk_api = aiovk.API(session)
 
-    manager = ConnManager()
+    manager = ConnectionManager()
     href_pattern = re.compile(r'https://vk.com/(?P<name>\w+)')
     # total = int(input('Введите кол-во постов (кол-во / 100)'))
     total = 200

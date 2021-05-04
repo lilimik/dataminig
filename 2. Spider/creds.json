@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "transitivity-matrix-312500",
+  "private_key_id": "0eeb028ba713144823e73d68488e9c798d93b34f",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC6hUxTGaTrnVJW\nb/dPN0aTJMq00ItvtNAG6jtTJ+oOakaP3WnVttU89isQBa2bMR0GXjzz+7L95+Vc\nBI5LjIDBmiuBZ21A2E0byFzR5GKJIi3OJvY7YovOUnFKQpLesriTcLKt16V2j0Wi\nv8CzKRXn6LvV0bmENPLaSgx1dY6vqZMf72/HULRS8eTm2BxPLGeByHyLPP2DjFyX\nkNhCTScuSeVYoRn50Rf9dTEkHzmeVNqSVzYsOgIry7JNLkNcj+D4G2Ye3ObfXvyL\nyg6IPdqhE8jtAMmMdl6i+zSXQvkXvGVrV3I8r2Uhl5D+ESuiLgYDXFZLU+Jcpg36\nPAMUWA7hAgMBAAECggEAMRdeZEzOlFjez/M+MzJIN/gqBfcRjAAZ9If3v0Y1G0Ar\nfDf5YA90BkyAPwJPlBYUHpX1Ev4/OQas3lAwp3++b7ZFFxUCs1t6yAIvM+sZaCB/\nz89/ZVfllhMq0DG/eC+v1taFoK2uVgsVd+ViMYVxx40AyyEc48gP1xZAOzYKrP7Q\nQLCetQNosvHjnryv8DYpiMLGdkE0kxv1M1KQUORRmmn4w/j8G1FqQ5NLx/HxnOvP\n6PyL6z3NMwDDR2x/dvQ/ThditWMr8kOuxVBJDUBkO67pjjlKlzHxq81NChTy1FTq\npAwEzWpKN2zGwA/9ycfak3yhaX492AabHNrvFrxBlQKBgQDvf0w8BZqQZR947pRM\nIORhmpXnnHGfJcS44ZyPJiT6hqOvnFEALIUDUAVM6XQrFggegFC1L+vck9rW4flW\nMxOxRt+coKv0nJkYj/Rjco4iiXJVpWjNZxxRsdwxs1KBaIFCBe/vC3ckWVMx9I4E\nf5I9WY/YDfwQPbD7Y1cTop6gMwKBgQDHX4AU2O/GIDb6nc0/8DaDkRU8p8xC+qz2\n/yuqE8MYzQ5VtHNc5UXxT3uBz9+OuE402mDJJdX0Ttjp5rhz8f9KrxI/tVgBCVPJ\n/xWGjU1ExfDzzfSc9eVPTT4MDoUETZAx6V1ZK3HurwWarCYOAxNmip0mgpGUI5xg\nzAakHS6wmwKBgA3+HQEgvrATCGyzW7y66zz8oCeBD25h8YVvwQroCp8MgMHA20as\nUzUnVrfwp9XgmqbVjmGXpCsmBFIrr7qmj077OhNXm9RV1egGeRvaVI2WBDUWzfG6\nRYBMaPYKaRageXTXDfakb9iS03aGuElw/qVQ90ODRafZQt7dJfhCtwvbAoGAW14m\nwmcQq0mEKKI8t7qMIQtSIjP75g4fSipyhkT8OddvZFOIMuBXh1kXjswG9c78+DfD\n9yrBvG6N9dNoYKpchoto341pwT/XCFFAOiNzb7sOy4xtN6lw50DM2JWm2+v30wfR\nYdYJJotLFDEkV3ONZobLsiRQNwWC2tFlkbxV81UCgYEA41QjH8R45j+rLS4EhXpy\nyI7NzeFP4O2OdlPFeRLR5zqxl7KuiwpNCHqmp+mSAluEPci2JQ0j/yiGgsgErwTT\ndJ8/Az24nRsLE2ctqwUQ9N9Jj+U/V0QnE7oyc8oKnDlBAqProihVWo0J+rUBusg2\nCN98KsMHGG43bURAOX42S6o=\n-----END PRIVATE KEY-----\n",
+  "client_email": "account@transitivity-matrix-312500.iam.gserviceaccount.com",
+  "client_id": "111605022421614221238",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/account%40transitivity-matrix-312500.iam.gserviceaccount.com"
+}
