@@ -1,6 +1,7 @@
 import asyncio
 import csv
 import time
+
 import apiclient
 import httplib2
 import networkx as nx
@@ -70,17 +71,28 @@ async def spider_for_link(link, session):
         pass
 
 
+def check_dead_ends():
+    check_count = 0
+    for link in checked_links:
+        if link not in dead_ends:
+            counter = 0
+            for key in all_links[link]:
+                if key in checked_links:
+                    counter += 1
+                    break
+            if counter == 0:
+                dead_ends.add(link)
+                check_count += 1
+    return check_count
+
+
 def create_pm_tm_matrices():
     probability_matrix = []
     transitivity_matrix = []
+    check_count = 1
 
-    for link in checked_links:
-        counter = 0
-        for key in all_links[link]:
-            if key in checked_links:
-                counter += 1
-            if counter == 0:
-                dead_ends.add(link)
+    while not check_count == 0:
+        check_count = check_dead_ends()
 
     row_for_tm = ['link']
     for link in checked_links:
@@ -95,7 +107,7 @@ def create_pm_tm_matrices():
 
             length = 0
             for key in all_links[link]:
-                if key in checked_links and link not in dead_ends:
+                if key in checked_links and key not in dead_ends:
                     length += all_links[link][key]
 
             for key in checked_links:
@@ -103,6 +115,7 @@ def create_pm_tm_matrices():
                     if key in all_links[link]:
                         row_for_tm.append(1)
                         row_for_pm.append(all_links[link][key] / length)
+                        saving_data_links.append(key)
                     else:
                         row_for_pm.append(0)
                         row_for_tm.append(0)
@@ -149,6 +162,7 @@ def generate_transitivity_matrix_eval_paper(transitivity_matrix):
             }]
         }
     ).execute()
+    print('https://docs.google.com/spreadsheets/d/' + spreadsheet_id)
 
 
 def generate_transitivity_matrix_xlsx():
@@ -187,14 +201,14 @@ def calculate_page_rank(probability_matrix):
     probability_matrix = [
         [x[i] for x in probability_matrix] for i in range(len(probability_matrix[0]))
     ]
-    return calculate_page_rank_item(probability_matrix, result)
+    result = calculate_page_rank_item(probability_matrix, result)
+    return result
 
 
 async def saving_data(connection, page_ranks):
     values = ''
-    cl = list(checked_links)
     for i in range(len(page_ranks)):
-        value = f'(\'{cl[i]}\', {page_ranks[i][0]})'
+        value = f'(\'{saving_data_links[i]}\', {page_ranks[i][0]})'
         if values == '':
             values = value
         else:
@@ -236,10 +250,10 @@ async def main():
     probability_matrix, transitivity_matrix = create_pm_tm_matrices()
     write_transitivity_matrix_to_csv(transitivity_matrix)
     build_a_graph()
-    if depth < 2:
-        generate_transitivity_matrix_eval_paper(transitivity_matrix)
-    else:
+    if depth < 3:
         generate_transitivity_matrix_xlsx()
+    else:
+        generate_transitivity_matrix_eval_paper(transitivity_matrix)
     page_ranks = calculate_page_rank(probability_matrix)
     await saving_data(connection, page_ranks)
 
@@ -251,17 +265,18 @@ async def main():
 if __name__ == '__main__':
     CREDENTIALS_FILE = 'creds.json'
     TRANSITIVITY_MATRIX_FILE = 'transitivity_matrix.csv'
-    XLSX_FILE = 'excel.xlsx'
+    XLSX_FILE = 'transitivity_matrix.xlsx'
     TABLE = 'sites'
     NUMBER_OF_PAGE_RANK_ITERATIONS = 10
     spreadsheet_id = '1pfhhIEnwHDdrGVdy3hicn-xuTEXKudEPNZ3gygPapT8'
     session_manager = SessionManager()
     connection_manager = ConnectionManager()
-    depth = 3
+    depth = 2
     # href = input('ведите начальную ссылку: ')
-    href = 'https://ria.ru/20180205/1513977064.html'
-    # href = 'https://news.sportbox.ru'
+    # href = 'https://ria.ru/20180205/1513977064.html'
+    href = 'https://news.sportbox.ru'
     extensions = ['.jpg', '.png', '.jpeg', '.pdf', '.doc', '.docx', '.exe', '.zip']
+    saving_data_links = []
     all_links = {}
     checked_links = set()
     unchecked_links = set()
